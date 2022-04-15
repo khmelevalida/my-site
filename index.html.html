@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Справочные материалы</title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <h1>  Справочные материалы</h1>
+Языке Python создаются с помощью новой инструкции def (создает объект и присваивает ему имя).<br>
+• Выражение lambda создает объект и возвращает его в виде результата.<br>
+• return передает объект результата вызывающей программе.<br>
+• yield передает объект результата вызывающей программе и запоминает, где был произведен возврат.<br>
+• аргументы передаются посредством присваивания (в виде ссылок на объекты).<br>
+    <h2>  Ссылки</h2>
+    <p><a href="https://pimiento.github.io/python_graphs.html" target="_blank">Работа с графами.
+      Нахождение количества путей между двумя точками</a></p>
+    <p><a href="https://tproger.ru/translations/python-sorting/" target="_blank">Сортировка списка</a></p>
+    <h2>Примеры решения задач с графами с помощью Python</h2>
+    <b>Кол-во путей между точками:</b>
+    <br>
+    graph = {'A': ['B', 'C'],
+    <br>
+         'B': ['A', 'D', 'E'],
+         <br>
+         'C': ['A', 'F'],
+         <br>
+         'D': ['B'],
+         <br>
+         'E': ['B', 'F'],
+         <br>
+         'F': ['C', 'E']}
+         <br>
+
+def dfs_paths(graph, start, goal):
+<br>
+    stack = [(start, [start])]  # (vertex, path)
+    <br>
+    while stack:
+    <br>
+        (vertex, path) = stack.pop()
+        <br>
+        for next in set(graph[vertex]) - set(path):
+        <br>
+            if next == goal:
+            <br>
+                yield path + [next]
+                <br>
+            else:<br>
+                stack.append((next, path + [next]))
+                <br>
+
+print(list(dfs_paths(graph, 'A', 'F')))
+<br>
+-------------------------------------------------------------------------------
+<br>
+<b>Более понятная версия</b><br>
+<font color="blue">Смежность вершин</font><br>
+inc = {<br>
+    1: [2, 8],<br>
+    2: [1, 3, 8],<br>
+    3: [2, 4, 8],<br>
+    4: [3, 7, 9],<br>
+    5: [6, 7],<br>
+    6: [5],<br>
+    7: [4, 5, 8],<br>
+    8: [1, 2, 3, 7],<br>
+    9: [4],<br>
+}<br>
+
+visited = set()  <font color="blue"># Посещена ли вершина?</font><br>
+<br>
+<br>
+<font color="blue"># Поиск в глубину - ПВГ (Depth First Search - DFS)</font><br>
+def dfs(v):<br>
+    if v in visited:  <font color="blue"># Если вершина уже посещена, выходим</font><br>
+        return<br>
+    visited.add(v)  <font color="blue"># Посетили вершину v<br></font>
+    for i in inc[v]:  <font color="blue"># Все смежные с v вершины</font><br>
+        if not i in visited:<br>
+            dfs(i)<br>
+<br>
+
+start = 1<br>
+dfs(start)  <font color="blue"># start - начальная вершина обхода</font><br>
+print(visited)<br>
+  </body><br>
+</html><br>
